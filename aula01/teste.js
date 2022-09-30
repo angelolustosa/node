@@ -1,20 +1,28 @@
 // CommonJS -> responsável por importar ou exportar os módulos
 // Importando o módulo os do node e colocando em uma variável
 const os = require('os')
+const { byteToGB } = require('../aula02/convertUnitStorage')
+const fs = require('fs')
 
 setInterval(() => {
-    const totalMem = parseInt(os.totalmem() / 1024 / 1024)
-    const freeMem = parseInt(os.freemem() / 1024 / 1024)
+    const totalMem = parseFloat(byteToGB(os.totalmem())).toFixed(2)
+    const freeMem = parseFloat(byteToGB(os.freemem())).toFixed(2)
     const percent = parseInt((freeMem / totalMem) * 100)
 
     const memoria = {
-        total: `${totalMem} MB`,
-        free: `${freeMem} MB`,
+        total: `${totalMem} GB`,
+        free: `${freeMem} GB`,
         percent: `${percent} %`
     }
 
     console.clear()
     console.table(memoria)
+    fs.appendFile(
+        '../aula02/log.txt',
+        'Inserindo log...',
+        'utf-8',
+        () => console.log('Log inserido')
+    )
 }, 1000)
 
 
