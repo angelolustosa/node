@@ -8,18 +8,21 @@ setInterval(() => {
     const totalMem = parseFloat(byteToGB(os.totalmem())).toFixed(2)
     const freeMem = parseFloat(byteToGB(os.freemem())).toFixed(2)
     const percent = parseInt((freeMem / totalMem) * 100)
-
+    
     const memoria = {
         total: `${totalMem} GB`,
         free: `${freeMem} GB`,
         percent: `${percent} %`
     }
 
+    let dateTime = new Date().toLocaleString()
+    let print = `${dateTime} ${JSON.stringify(memoria)}\n`
+
     console.clear()
     console.table(memoria)
     fs.appendFile(
-        '../aula02/log.txt',
-        'Inserindo log...',
+        './aula02/log.txt',
+        print,
         'utf-8',
         () => console.log('Log inserido')
     )
